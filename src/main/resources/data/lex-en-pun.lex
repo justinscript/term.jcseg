@@ -1,0 +1,17 @@
+EN_PUN_WORDS
+#英文和标点组合成的词,英文字母统一使用小写。
+c++
+g++
+c#
+Daggett&Ramsdell
+iPad4
+iphone
+iphone5c
+iphone5s
+mini2
+Xbox360
+14k
+18k
+19v
+220v
+24v
