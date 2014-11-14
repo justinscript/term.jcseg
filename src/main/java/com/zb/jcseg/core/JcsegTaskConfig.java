@@ -97,6 +97,17 @@ public class JcsegTaskConfig {
     // 智能合并但在分
     private boolean            wiselyUnionWord       = false;
 
+    /* Wether to do the secondary split for complex latin compose */
+    public boolean             EN_SECOND_SEG         = true;
+
+    public boolean             KEEP_UNREG_WORDS      = false;
+
+    /* Less length for the second split to make up a word */
+    public int                 STOKEN_MIN_LEN        = 1;
+
+    /* keep puncutations */
+    private String             KEEP_PUNCTUATIONS     = "@%&.'#+";
+
     public JcsegTaskConfig() {
         this(null);
     }
@@ -292,9 +303,41 @@ public class JcsegTaskConfig {
         if (lexPro.getProperty("jcseg.clearstopword") != null && lexPro.getProperty("jcseg.clearstopword").equals("1")) CLEAR_STOPWORD = true;
         if (lexPro.getProperty("jcseg.cnnumtoarabic") != null && lexPro.getProperty("jcseg.cnnumtoarabic").equals("0")) CNNUM_TO_ARABIC = false;
         if (lexPro.getProperty("jcseg.cnfratoarabic") != null && lexPro.getProperty("jcseg.cnfratoarabic").equals("0")) CNFRA_TO_ARABIC = false;
+        if (lexPro.getProperty("jcseg.keepunregword") != null && lexPro.getProperty("jcseg.keepunregword").equals("1")) KEEP_UNREG_WORDS = true;
         if (lexPro.getProperty("lexicon.autoload") != null && lexPro.getProperty("lexicon.autoload").equals("1")) lexAutoload = true;
         if (lexPro.getProperty("lexicon.polltime") != null) polltime = Integer.parseInt(lexPro.getProperty("lexicon.polltime"));
         if (lexPro.getProperty("wiselyUnionWord") != null && lexPro.getProperty("wiselyUnionWord").equals("1")) wiselyUnionWord = true;
+
+        // secondary split
+        if (lexPro.getProperty("jcseg.ensencondseg") != null && lexPro.getProperty("jcseg.ensencondseg").equals("0")) EN_SECOND_SEG = false;
+        if (lexPro.getProperty("jcseg.stokenminlen") != null) STOKEN_MIN_LEN = Integer.parseInt(lexPro.getProperty("jcseg.stokenminlen"));
+
+        // load the keep punctuations.
+        if (lexPro.getProperty("jcseg.keeppunctuations") != null) KEEP_PUNCTUATIONS = lexPro.getProperty("jcseg.keeppunctuations");
+    }
+
+    public int getSTokenMinLen() {
+        return STOKEN_MIN_LEN;
+    }
+
+    public void setSTokenMinLen(int len) {
+        STOKEN_MIN_LEN = len;
+    }
+
+    public boolean keepUnregWords() {
+        return KEEP_UNREG_WORDS;
+    }
+
+    public void setKeepUnregWords(boolean keepUnregWords) {
+        KEEP_UNREG_WORDS = keepUnregWords;
+    }
+
+    public boolean getEnSecondSeg() {
+        return EN_SECOND_SEG;
+    }
+
+    public void setEnSecondSeg(boolean enSecondSeg) {
+        this.EN_SECOND_SEG = enSecondSeg;
     }
 
     /** property about lexicon file. */
@@ -442,6 +485,14 @@ public class JcsegTaskConfig {
 
     public void setCnFactionToArabic(boolean cnFractionToArabic) {
         CNFRA_TO_ARABIC = cnFractionToArabic;
+    }
+
+    public void setKeepPunctuations(String keepPunctuations) {
+        KEEP_PUNCTUATIONS = keepPunctuations;
+    }
+
+    public boolean isKeepPunctuation(char c) {
+        return (KEEP_PUNCTUATIONS.indexOf(c) > -1);
     }
 
     public boolean isWiselyUnionWord() {

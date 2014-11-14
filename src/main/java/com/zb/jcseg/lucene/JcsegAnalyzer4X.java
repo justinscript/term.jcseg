@@ -23,13 +23,20 @@ public class JcsegAnalyzer4X extends Analyzer {
 
     private int             mode;
     private JcsegTaskConfig config = null;
-    private JcsegDictionary     dic    = null;
+    private JcsegDictionary dic    = null;
 
     public JcsegAnalyzer4X(int mode) {
         this.mode = mode;
 
         // initialize the task config and the dictionary
         config = new JcsegTaskConfig();
+        dic = JcsegDictionaryFactory.createDefaultDictionary(config);
+    }
+
+    public JcsegAnalyzer4X(int mode, String proFile) {
+        this.mode = mode;
+
+        config = new JcsegTaskConfig(proFile);
         dic = JcsegDictionaryFactory.createDefaultDictionary(config);
     }
 

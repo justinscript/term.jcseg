@@ -205,7 +205,7 @@ public abstract class JcsegDictionary {
         if (key == null) return -1;
         key = key.toUpperCase();
 
-        if (key.equals("CJK_WORDS")) return ILexicon.CJK_WORDS;
+        if (key.equals("CJK_WORDS")) return ILexicon.CJK_WORD;
         else if (key.equals("CJK_UNITS")) return ILexicon.CJK_UNITS;
         else if (key.equals("EC_MIXED_WORD")) return ILexicon.EC_MIXED_WORD;
         else if (key.equals("CE_MIXED_WORD")) return ILexicon.CE_MIXED_WORD;
@@ -214,10 +214,10 @@ public abstract class JcsegDictionary {
         else if (key.equals("CN_DNAME_1")) return ILexicon.CN_DNAME_1;
         else if (key.equals("CN_DNAME_2")) return ILexicon.CN_DNAME_2;
         else if (key.equals("CN_LNAME_ADORN")) return ILexicon.CN_LNAME_ADORN;
-        else if (key.equals("EN_PUN_WORDS")) return ILexicon.EN_PUN_WORDS;
+        else if (key.equals("EN_PUN_WORDS")) return ILexicon.EN_PUN_WORD;
         else if (key.equals("STOP_WORDS")) return ILexicon.STOP_WORD;
 
-        return ILexicon.CJK_WORDS;
+        return ILexicon.CJK_WORD;
     }
 
     /**
@@ -290,10 +290,10 @@ public abstract class JcsegDictionary {
                      * Here: 1. english stop words, 2. english and chinese mixed words, 3. chinese and english mixed
                      * words, 4. english punctuation words, don't have to limit its length.
                      */
-                    boolean olen = (t == ILexicon.STOP_WORD && ENSCFilter.isHalfWidthChar(line.charAt(0)));
+                    boolean olen = (t == ILexicon.STOP_WORD && ENSCFilter.isHWEnChar(line.charAt(0)));
                     olen = olen || (t == ILexicon.EC_MIXED_WORD);
                     olen = olen || (t == ILexicon.CE_MIXED_WORD);
-                    olen = olen || (t == ILexicon.EN_PUN_WORDS);
+                    olen = olen || (t == ILexicon.EN_PUN_WORD);
                     if (olen || line.length() <= config.MAX_LENGTH) {
                         dic.add(t, line, IWord.T_CJK_WORD);
                     }

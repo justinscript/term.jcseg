@@ -12,12 +12,12 @@ package com.zb.jcseg.core;
  */
 public interface ILexicon {
 
-    public static final int T_LEN            = 11;
+    public static final int T_LEN            = 12;
 
     /**
      * China,JPanese,Korean words
      */
-    public static final int CJK_WORDS        = 0;
+    public static final int CJK_WORD         = 0;
 
     /**
      * chinese single units
@@ -53,12 +53,13 @@ public interface ILexicon {
      * the adorn(修饰) char before the last name.
      */
     public static final int CN_LNAME_ADORN   = 7;
-    public static final int EN_PUN_WORDS     = 8;
+    public static final int EN_PUN_WORD      = 8;
     public static final int STOP_WORD        = 9;
     public static final int CE_MIXED_WORD    = 10;
+    public static final int EN_WORD          = 11;
 
     /**
      * unmatched word
      */
-    public static final int UNMATCH_CJK_WORD = 10;
+    public static final int UNMATCH_CJK_WORD = 15;
 }

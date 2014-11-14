@@ -12,7 +12,7 @@ import com.zb.jcseg.core.IWord;
  * 
  * @author zxc Sep 3, 2014 2:25:43 PM
  */
-public class JcsegWord implements IWord {
+public class JcsegWord implements IWord, Cloneable {
 
     private String   value;
     private int      fre        = 0;
@@ -96,12 +96,22 @@ public class JcsegWord implements IWord {
         return syn;
     }
 
+    @Override
+    public void setSyn(String[] syn) {
+        this.syn = syn;
+    }
+
     /**
      * @see IWord#getPartSpeech()
      */
     @Override
     public String[] getPartSpeech() {
         return partspeech;
+    }
+
+    @Override
+    public void setPartSpeech(String[] partspeech) {
+        this.partspeech = partspeech;
     }
 
     /**
@@ -151,6 +161,7 @@ public class JcsegWord implements IWord {
 
     /**
      * @see Object#equals(Object)
+     * @see IWord#equals(Object)
      */
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -164,7 +175,25 @@ public class JcsegWord implements IWord {
              */
             return (bool && (word.getType() == this.getType()));
         }
+
         return false;
+    }
+
+    /**
+     * Interface to clone the current object
+     * 
+     * @return IWord
+     */
+    @Override
+    public IWord clone() {
+        IWord w = null;
+        try {
+            w = (IWord) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        return w;
     }
 
     /**
